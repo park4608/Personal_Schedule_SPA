@@ -1,0 +1,42 @@
+.react-calendar {
+  width: 100%;
+}
+/** 달력 오늘 날짜 칸 */
+.react-calendar__tile--now {
+  background: #b0defd;
+}
+.react-calendar__tile--now:enabled:hover {
+  background: #cccccc;
+}
+.react-calendar__tile--now:enabled:focus {
+  color: black;
+}
+
+/** 달력 년/월 표시 글씨 */
+.react-calendar__navigation__label > span {
+}
+
+/**요일 section */
+.react-calendar__month-view__weekdays abbr {
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/** day타일 */
+.react-calendar__tile {
+  display: flex;
+  height: 79px;
+  border: 1px solid rgb(207, 207, 207) !important;
+}
+
+.react-calendar__tile abbr {
+  display: inline-block;
+  font-size: 12px;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  /* background-color: ; */
+  /* color: ; */
+}
