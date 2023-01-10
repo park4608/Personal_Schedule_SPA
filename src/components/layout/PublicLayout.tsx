@@ -40,7 +40,7 @@ export default function PublicLayout() {
     <>
       <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-          <Title style={{ margin: 0, padding: 8, color: '#fff' }} level={2}>
+          <Title style={{ margin: 0, padding: 8, color: '#fff', textAlign: 'center' }} level={2}>
             Schedule
           </Title>
           <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline' items={items} />
