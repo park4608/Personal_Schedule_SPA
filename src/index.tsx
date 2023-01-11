@@ -8,6 +8,7 @@ import Root from './components/pages/Root';
 import PublicLayout from './components/layout/PublicLayout';
 import DailyTodo from './components/pages/ScheduleManagement/DailyTodo';
 import MonthlyPlan from './components/pages/ScheduleManagement/MonthlyPlan';
+import StickerMemo from './components/pages/StickerMemo/StickerMemo';
 
 const router = createBrowserRouter([
   {
@@ -15,12 +16,20 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       {
+        index: true,
+        element: <Root />,
+      },
+      {
         path: '/dailyTodo',
         element: <DailyTodo />,
       },
       {
         path: '/monthlyPlan',
         element: <MonthlyPlan />,
+      },
+      {
+        path: '/stickerMemo',
+        element: <StickerMemo />,
       },
     ],
   },

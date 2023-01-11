@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import { Divider } from 'antd';
+import { Divider, Input, Popover } from 'antd';
 import { PlusCircleTwoTone } from '@ant-design/icons';
-
+import { ToDo, Frequent } from '../../Data/data';
 export const OverflowHiddenDiv = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -22,6 +23,8 @@ export const FrameTitle = styled.h3`
   font-size: 18px;
   padding-top: 5px;
   color: #000;
+  position: sticky;
+  top: 0;
 `;
 
 export const Frame = styled.div`
@@ -114,3 +117,70 @@ export const PlusIcon = styled(PlusCircleTwoTone)`
     transform: scale(1.1);
   }
 `;
+
+export const FrameHeader = () => {
+  return (
+    <div style={{ position: 'sticky', top: 0, paddingBottom: '5px' }}>
+      <FrameTitle>2023/01/05</FrameTitle>
+      <Input placeholder='Basic usage' />
+    </div>
+  );
+};
+
+type ToDoType = { id: number; data: string }[];
+type ListType = { id: number; data: string };
+
+export const ToDoList = ({ Todos }: { Todos: ToDoType }) => {
+  // const [checkedList, setCheckedList] = useState<ToDoType[]>([]);
+  return (
+    <>
+      {Todos.map((item: ListType) => {
+        return (
+          <>
+            <StyledLabel>
+              <StyledInput type='checkbox' name='checkbox' />
+              <Popover content={item.data} placement='topLeft'>
+                <TodoElement>{item.data}</TodoElement>
+              </Popover>
+            </StyledLabel>
+            <LiDivider />
+          </>
+        );
+      })}
+    </>
+  );
+};
+
+const FrequentToDoList = () => {
+  const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    console.log('clicked');
+  };
+  return (
+    <>
+      {Frequent.map((item) => {
+        return (
+          <>
+            <TextHiddenLi>
+              <Popover content={item.data} placement='topLeft'>
+                <OverflowHiddenDiv>{item.data}</OverflowHiddenDiv>
+              </Popover>
+
+              <PlusIcon onClick={clickHandler} />
+            </TextHiddenLi>
+            <LiDivider />
+          </>
+        );
+      })}
+    </>
+  );
+};
+
+// export const DailyTodoWidget = () => {
+//   <>
+//     <Frame>
+//       <FrameHeader />
+//       <ToDoList />
+//     </Frame>
+//   </>;
+// };

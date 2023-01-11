@@ -1,10 +1,10 @@
-import React, { ReactNode, useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { ReactNode, useState, useEffect } from 'react';
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import 'antd/dist/reset.css';
 import { FileOutlined } from '@ant-design/icons';
 import { Typography, Layout, Menu, theme } from 'antd';
 import type { MenuProps } from 'antd';
-import { CalendarToday, Calendar } from '../Icons/MenuIcons';
+import { Home, CalendarToday, Calendar, File } from '../Icons/MenuIcons';
 import DailyTodo from '../pages/ScheduleManagement/DailyTodo';
 
 const { Title } = Typography;
@@ -25,16 +25,23 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode,
 }
 
 const items: MenuItem[] = [
-  getItem(<Link to={`/dailyTodo`}>Daily / Weekly</Link>, '1', <CalendarToday />),
-  getItem(<Link to={`/monthlyPlan`}>Monthly Plan</Link>, '2', <Calendar />),
-  getItem(<Link to={`/`}>Memo</Link>, '9', <FileOutlined />),
+  getItem(<Link to={`/`}>Home</Link>, '1', <Home />),
+  getItem(<Link to={`/dailyTodo`}>Daily / Weekly</Link>, '2', <CalendarToday />),
+  getItem(<Link to={`/monthlyPlan`}>Monthly Plan</Link>, '3', <Calendar />),
+  getItem(<Link to={`/StickerMemo`}>Memo</Link>, '4', <File />),
 ];
+
+let currentPath = '';
 
 export default function PublicLayout() {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+
+  let location = useLocation();
+
+  // useEffect(() => {
+  //   if (currentPath === location.pathname) window.location.reload();
+  //   currentPath = location.pathname;
+  // }, [location]);
 
   return (
     <>
