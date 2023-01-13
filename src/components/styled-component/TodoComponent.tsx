@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Divider, Input, Popover } from 'antd';
 import { PlusCircleTwoTone } from '@ant-design/icons';
-import { ToDo, Frequent } from '../../Data/data';
+import { ToDo } from '../../Data/data';
 export const OverflowHiddenDiv = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -38,11 +38,11 @@ export const Frame = styled.div`
   }
 
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 3px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #666;
+    background: #a1a1a1;
     border-radius: 10px;
   }
 
@@ -118,29 +118,24 @@ export const PlusIcon = styled(PlusCircleTwoTone)`
   }
 `;
 
-export const FrameHeader = () => {
-  return (
-    <div style={{ position: 'sticky', top: 0, paddingBottom: '5px' }}>
-      <FrameTitle>2023/01/05</FrameTitle>
-      <Input placeholder='Basic usage' />
-    </div>
-  );
-};
+type ToDoType = { date: string; data: string[] }[];
+type ListType = { date: string; data: string[] };
 
-type ToDoType = { id: number; data: string }[];
-type ListType = { id: number; data: string };
-
-export const ToDoList = ({ Todos }: { Todos: ToDoType }) => {
+export const ToDoList = ({ Todos }: { Todos: ListType }) => {
   // const [checkedList, setCheckedList] = useState<ToDoType[]>([]);
   return (
     <>
-      {Todos.map((item: ListType) => {
+      <div style={{ position: 'sticky', top: 0, paddingBottom: '5px' }}>
+        <FrameTitle>{Todos.date}</FrameTitle>
+        <Input placeholder='할 일을 입력해주세요' />
+      </div>
+      {Todos.data.map((item: string) => {
         return (
           <>
             <StyledLabel>
               <StyledInput type='checkbox' name='checkbox' />
-              <Popover content={item.data} placement='topLeft'>
-                <TodoElement>{item.data}</TodoElement>
+              <Popover content={item} placement='topLeft'>
+                <TodoElement>{item}</TodoElement>
               </Popover>
             </StyledLabel>
             <LiDivider />
@@ -151,30 +146,30 @@ export const ToDoList = ({ Todos }: { Todos: ToDoType }) => {
   );
 };
 
-const FrequentToDoList = () => {
-  const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    console.log('clicked');
-  };
-  return (
-    <>
-      {Frequent.map((item) => {
-        return (
-          <>
-            <TextHiddenLi>
-              <Popover content={item.data} placement='topLeft'>
-                <OverflowHiddenDiv>{item.data}</OverflowHiddenDiv>
-              </Popover>
+// const FrequentToDoList = () => {
+//   const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+//     event.preventDefault();
+//     console.log('clicked');
+//   };
+//   return (
+//     <>
+//       {Frequent.map((item) => {
+//         return (
+//           <>
+//             <TextHiddenLi>
+//               <Popover content={item.data} placement='topLeft'>
+//                 <OverflowHiddenDiv>{item.data}</OverflowHiddenDiv>
+//               </Popover>
 
-              <PlusIcon onClick={clickHandler} />
-            </TextHiddenLi>
-            <LiDivider />
-          </>
-        );
-      })}
-    </>
-  );
-};
+//               <PlusIcon onClick={clickHandler} />
+//             </TextHiddenLi>
+//             <LiDivider />
+//           </>
+//         );
+//       })}
+//     </>
+//   );
+// };
 
 // export const DailyTodoWidget = () => {
 //   <>

@@ -3,19 +3,22 @@ import * as S from '../../styled-component/TodoComponent';
 import ScheduleCalendar from './MonthlyPlan';
 import { Col, Row } from 'antd';
 import { PlusCircleTwoTone } from '@ant-design/icons';
-import { ToDo, Frequent } from '../../../Data/data';
+import { ToDo } from '../../../Data/data';
 
 function DailyTodo() {
   return (
     <>
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Row gutter={[16, 16]} justify='center' align='middle'>
-          <Col span={6}>
-            <S.Frame>
-              <S.FrameHeader />
-              <S.ToDoList Todos={ToDo} />
-            </S.Frame>
-          </Col>
+          {ToDo.map((item) => {
+            return (
+              <Col span={6}>
+                <S.Frame>
+                  <S.ToDoList Todos={item} />
+                </S.Frame>
+              </Col>
+            );
+          })}
         </Row>
       </div>
     </>

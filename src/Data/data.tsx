@@ -1,31 +1,14 @@
-type ToDoType = { id: number; data: string }[];
+type ToDoType = { date: string; data: string[] }[];
+type listContent = {};
 
 const ToDo: ToDoType = [
-  { id: 0, data: '운동하기 뛰기 걷기 숨쉬기' },
-  { id: 1, data: '밥하기' },
-  { id: 2, data: '산책하기' },
-  { id: 3, data: '게임하기' },
-  { id: 4, data: '공부하기' },
-  { id: 5, data: '운동하기 뛰기 걷기 숨쉬기' },
-  { id: 6, data: '밥하기' },
+  { date: '2023-01-01', data: ['운동하기', '뛰기', '걷기', '숨쉬기'] },
+  { date: '2023-01-02', data: ['밥먹기', '게임하기', '앉기'] },
+  { date: '2023-01-03', data: ['뛰기'] },
+  { date: '2023-01-04', data: ['머리자르기', '손톱자르기'] },
+  { date: '2023-01-05', data: ['책상 청소하기', '화장실 청소'] },
+  { date: '2023-01-06', data: ['운동하기 뛰기 걷기 숨쉬기'] },
+  { date: '2023-01-07', data: ['걷기', '숨쉬기'] },
 ];
 
-const Frequent: ToDoType = [
-  { id: 0, data: '운동하기 뛰기 걷기 숨쉬기adfsafadfs' },
-  { id: 1, data: '밥하기' },
-  { id: 2, data: '산책하기' },
-  { id: 3, data: '게임하기' },
-  { id: 4, data: '공부하기' },
-  { id: 5, data: '운동하기 뛰기 걷기 숨쉬기' },
-  { id: 6, data: '밥하기' },
-  { id: 7, data: '산책하기' },
-  { id: 8, data: '게임하기' },
-  { id: 9, data: '공부하기' },
-  { id: 10, data: '운동하기 뛰기 걷기 숨쉬기' },
-  { id: 11, data: '밥하기' },
-  { id: 12, data: '산책하기' },
-  { id: 13, data: '게임하기' },
-  { id: 14, data: '공부하기' },
-];
-
-export { ToDo, Frequent };
+export { ToDo };
