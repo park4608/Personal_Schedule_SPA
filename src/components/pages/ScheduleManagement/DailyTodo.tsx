@@ -10,9 +10,9 @@ function DailyTodo() {
     <>
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <Row gutter={[16, 16]} justify='center' align='middle'>
-          {ToDo.map((item) => {
+          {ToDo.map((item, i) => {
             return (
-              <Col span={6}>
+              <Col span={6} key={i}>
                 <S.Frame>
                   <S.ToDoList Todos={item} />
                 </S.Frame>

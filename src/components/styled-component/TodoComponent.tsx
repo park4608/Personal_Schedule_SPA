@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Divider, Input, Popover } from 'antd';
 import { PlusCircleTwoTone } from '@ant-design/icons';
@@ -56,7 +56,7 @@ export const CalendarFrame = styled.div`
   /* border: 1px solid black; */
 `;
 
-export const StyledInput = styled.input`
+export const StyledCheckBox = styled.input`
   appearance: none;
   width: 16px;
   height: 16px;
@@ -110,6 +110,42 @@ export const TextHiddenLi = styled.li`
   justify-content: space-between;
   padding: 4px 0;
 `;
+const ToDoInput = styled.input`
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  background-color: #ffffff;
+  background-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &:hover {
+    /* outline: none; */
+    border-color: #4096ff;
+    border-inline-end-width: 1px;
+  }
+
+  &::placeholder {
+    color: #bfbfbf;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #4096ff;
+  }
+`;
 
 export const PlusIcon = styled(PlusCircleTwoTone)`
   transition: all 0.1s ease-out;
@@ -118,22 +154,41 @@ export const PlusIcon = styled(PlusCircleTwoTone)`
   }
 `;
 
-type ToDoType = { date: string; data: string[] }[];
+// type ToDoType = { date: string; data: string[] }[];
 type ListType = { date: string; data: string[] };
 
 export const ToDoList = ({ Todos }: { Todos: ListType }) => {
-  // const [checkedList, setCheckedList] = useState<ToDoType[]>([]);
+  const [toDoList, settoDoList] = useState<string[]>(Todos.data);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState<string>('');
+
+  const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && inputRef.current !== null) {
+      setValue(inputRef.current.value);
+      inputRef.current.value = '';
+      console.log(value);
+      settoDoList([...toDoList, value]);
+    }
+  };
+
   return (
     <>
       <div style={{ position: 'sticky', top: 0, paddingBottom: '5px' }}>
         <FrameTitle>{Todos.date}</FrameTitle>
-        <Input placeholder='할 일을 입력해주세요' />
+        <ToDoInput
+          placeholder='할 일을 입력해주세요'
+          ref={inputRef}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setValue(e.target.value);
+          }}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)}
+        />
       </div>
-      {Todos.data.map((item: string) => {
+      {toDoList.map((item: string) => {
         return (
           <>
             <StyledLabel>
-              <StyledInput type='checkbox' name='checkbox' />
+              <StyledCheckBox type='checkbox' name='checkbox' />
               <Popover content={item} placement='topLeft'>
                 <TodoElement>{item}</TodoElement>
               </Popover>
