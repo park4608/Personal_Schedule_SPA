@@ -1,0 +1,9 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  color: red;
+}
+
+h3 {
+  color: red;
+}

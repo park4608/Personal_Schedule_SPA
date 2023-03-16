@@ -4,11 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root from './components/pages/Root';
-import PublicLayout from './components/layout/PublicLayout';
-import DailyTodo from './components/pages/ScheduleManagement/DailyTodo';
-import MonthlyPlan from './components/pages/ScheduleManagement/MonthlyPlan';
-import StickerMemo from './components/pages/StickerMemo/StickerMemo';
+import PublicLayout from './layout/PublicLayout';
+import Schedule from './pages/ScheduleManagement/Schedule';
+import MonthlyPlan from './pages/ScheduleManagement/MonthlyPlan';
+import StickerMemo from './pages/SticyNote/StickyNote';
+import Form from './pages/Form';
+
+import Ex from './Data/Ex';
 
 const router = createBrowserRouter([
   {
@@ -17,11 +19,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Root />,
+        element: <Ex />,
       },
       {
         path: '/dailyTodo',
-        element: <DailyTodo />,
+        element: <Schedule />,
       },
       {
         path: '/monthlyPlan',
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/stickerMemo',
         element: <StickerMemo />,
+      },
+      {
+        path: '/form',
+        element: <Form />,
       },
     ],
   },

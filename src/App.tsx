@@ -1,13 +1,14 @@
 import React from 'react';
-import PublicLayout from './components/layout/PublicLayout';
-import Calendar from './components/pages/ScheduleManagement/DailyTodo';
+import PublicLayout from './layout/PublicLayout';
 import './App.css';
+
+import { ChakraProvider } from '@chakra-ui/react';
 
 function App() {
   return (
-    <div className='App'>
+    <ChakraProvider>
       <PublicLayout />
-    </div>
+    </ChakraProvider>
   );
 }
 
