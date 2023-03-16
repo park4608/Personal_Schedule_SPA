@@ -1,8 +1,9 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { Divider, Input, Popover } from 'antd';
-import { PlusCircleTwoTone } from '@ant-design/icons';
+import { Divider, Input, Popover, Col, Row } from 'antd';
+import { PlusCircleTwoTone, CloseOutlined } from '@ant-design/icons';
 import { ToDo } from '../../Data/data';
+
 export const OverflowHiddenDiv = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -13,10 +14,6 @@ export const OverflowHiddenDiv = styled.div`
 export const ColumnBox = styled.div`
   padding: 5px 2px;
 `;
-
-interface FrameProps {
-  height: string;
-}
 
 export const FrameTitle = styled.h3`
   align-items: center;
@@ -30,8 +27,11 @@ export const FrameTitle = styled.h3`
 export const Frame = styled.div`
   padding: 5px 16px;
   height: 310px;
+  min-width: 270px;
+  max-width: 450px;
   overflow: auto;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  background-color: #fff;
   transition: all 0.2s ease-out;
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -51,13 +51,14 @@ export const Frame = styled.div`
   }
 `;
 
-export const CalendarFrame = styled.div`
-  height: 600px;
-  /* border: 1px solid black; */
-`;
+// export const CalendarFrame = styled.div`
+//   height: 600px;
+//   /* border: 1px solid black; */
+// `;
 
 export const StyledCheckBox = styled.input`
   appearance: none;
+  min-width: 16px;
   width: 16px;
   height: 16px;
   border: 2.5px solid gainsboro;
@@ -110,7 +111,7 @@ export const TextHiddenLi = styled.li`
   justify-content: space-between;
   padding: 4px 0;
 `;
-const ToDoInput = styled.input`
+export const ToDoInput = styled.input`
   box-sizing: border-box;
   margin: 0;
   padding: 4px 11px;
@@ -154,6 +155,13 @@ export const PlusIcon = styled(PlusCircleTwoTone)`
   }
 `;
 
+const RemoveIcon = styled(CloseOutlined)`
+  color: #e20166;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 // type ToDoType = { date: string; data: string[] }[];
 type ListType = { date: string; data: string[] };
 
@@ -184,15 +192,16 @@ export const ToDoList = ({ Todos }: { Todos: ListType }) => {
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)}
         />
       </div>
-      {toDoList.map((item: string) => {
+      {toDoList.map((item: string, i: number) => {
         return (
           <>
-            <StyledLabel>
-              <StyledCheckBox type='checkbox' name='checkbox' />
-              <Popover content={item} placement='topLeft'>
+            <Popover content={item} placement='left'>
+              <StyledLabel>
+                <StyledCheckBox type='checkbox' name='checkbox' />
                 <TodoElement>{item}</TodoElement>
-              </Popover>
-            </StyledLabel>
+                <RemoveIcon />
+              </StyledLabel>
+            </Popover>
             <LiDivider />
           </>
         );
@@ -234,3 +243,63 @@ export const ToDoList = ({ Todos }: { Todos: ListType }) => {
 //     </Frame>
 //   </>;
 // };
+
+const TableFrame = styled.div`
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+`;
+
+const Block = styled.div`
+  height: 35px;
+  width: 350px;
+  border: 1px solid limegreen;
+`;
+
+export const TimeList = () => {
+  return (
+    <>
+      <TableFrame>
+        <Row gutter={[2, 2]}>
+          <Col span={12}>
+            <Block>1</Block>
+            <Block>2</Block>
+            <Block>3</Block>
+            <Block>4</Block>
+            <Block>5</Block>
+            <Block>6</Block>
+            <Block>7</Block>
+            <Block>8</Block>
+            <Block>9</Block>
+            <Block>10</Block>
+            <Block>11</Block>
+            <Block>12</Block>
+            <Block>13</Block>
+            <Block>14</Block>
+            <Block>15</Block>
+            <Block>16</Block>
+          </Col>
+          <Col span={12}>
+            <Block>1</Block>
+            <Block>2</Block>
+            <Block>3</Block>
+            <Block>4</Block>
+            <Block>5</Block>
+            <Block>6</Block>
+            <Block>7</Block>
+            <Block>8</Block>
+            <Block>9</Block>
+            <Block>10</Block>
+            <Block>11</Block>
+            <Block>12</Block>
+            <Block>13</Block>
+            <Block>14</Block>
+            <Block>15</Block>
+            <Block>16</Block>
+          </Col>
+        </Row>
+      </TableFrame>
+    </>
+  );
+};
