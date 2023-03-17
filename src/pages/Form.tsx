@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import * as S from '../components/styled-component/TodoComponent';
+<<<<<<< HEAD
 import axios, { AxiosResponse } from 'axios';
 import day from 'dayjs';
+=======
+import axios from 'axios';
+>>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
 
 const FormFrame = styled.div`
   display: flex;
@@ -15,6 +19,7 @@ const FormFrame = styled.div`
 type Todo = {
   date: string;
   content: string;
+<<<<<<< HEAD
   idx: string;
 };
 
@@ -22,24 +27,31 @@ type todoList = {
   date: string | undefined;
   content: string | undefined;
   idx: string | undefined;
+=======
+>>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
 };
 
 function Form() {
   const [inputs, setInputs] = useState<Todo>({
     date: '',
     content: '',
+<<<<<<< HEAD
     idx: '',
   });
 
   const [todoList, setList] = useState<todoList[]>([]);
   // const [count, setCount] = useState<number>(todoList.length);
 
+=======
+  });
+>>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
   const inputRef = useRef<null[] | HTMLInputElement[]>([]);
 
   const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       let data = {
         date: inputRef.current[0]?.value,
+<<<<<<< HEAD
         content: inputRef.current[1]?.value,
         idx: day().format('MMDDHH:mm:ss'),
       };
@@ -47,6 +59,13 @@ function Form() {
       axios.post('http://localhost:8080/formPage', data).then((res) => {
         // console.log(res);
         setList([...todoList, data]);
+=======
+        contents: inputRef.current[1]?.value,
+      };
+
+      axios.post('http://localhost:8080/formPage', data).then((res) => {
+        console.log(res);
+>>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
       });
 
       onReset();
@@ -65,6 +84,7 @@ function Form() {
     setInputs({
       date: '',
       content: '',
+<<<<<<< HEAD
       idx: '',
     });
   };
@@ -85,6 +105,11 @@ function Form() {
     fetchData();
   }, [todoList]);
 
+=======
+    });
+  };
+
+>>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
   return (
     <FormFrame>
       <form action='http://localhost:8080/formPage' method='POST'>
@@ -104,6 +129,7 @@ function Form() {
           onChange={OnChange}
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)}
         />
+<<<<<<< HEAD
         <ul>
           {todoList.map((e, i) => (
             <li>
@@ -116,6 +142,8 @@ function Form() {
             </li>
           ))}
         </ul>
+=======
+>>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
       </form>
     </FormFrame>
   );
