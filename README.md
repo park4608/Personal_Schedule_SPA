@@ -47,4 +47,4 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 =======
 # Personal_Schedule_SPA
->>>>>>> 7adf0d9c2a5eb47b25a896692c7677be1ee8e96e
+
