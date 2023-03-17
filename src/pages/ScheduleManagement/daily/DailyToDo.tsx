@@ -1,28 +1,54 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, forwardRef, useEffect, ComponentProps } from 'react';
 import styled from 'styled-components';
-import * as S from '../../../components/styled-component/CommonComponent';
-import { Container, Box, Flex, Grid, GridItem, HStack, Button, Text, List, ListItem, ListIcon, OrderedList, UnorderedList, Input } from '@chakra-ui/react';
+import * as S from '../../../components/styled-component/TodoComponent';
+import * as C from '../../../components/styled-component/CommonComponent';
+import { chakra, Container, Box, Flex, Grid, GridItem, HStack, Button, Text, List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react';
 import { SmallCloseIcon } from '@chakra-ui/icons';
 
 import axios from 'axios';
+import day from 'dayjs';
+import { Spinner } from './../../../components/styled-component/CommonComponent';
 
-const toDoList = [1, 2, 3, 4, 4, 5, 6, 7, 8, 9];
+type todoList = {
+  content: string | undefined;
+  idx: string | undefined;
+};
 
 function DailyToDo() {
-  const [inputs, setInputs] = useState<any>('');
+  const [inputs, setInputs] = useState<string>('');
+  const [todoList, setList] = useState<todoList[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
-  // const inputRef = useRef<null | HTMLInputElement>();
+  const inputRef = useRef<null | HTMLInputElement>(null);
+
+  const postManager = (data: todoList) => {
+    setLoading((prevState) => !prevState);
+    setInputs('');
+    setList((prevState) => [...prevState, data]);
+    setTimeout(() => setLoading((prevState) => !prevState), 500);
+  };
+
+  const deleteManager = (idx: string | null) => {
+    setLoading((prevState) => !prevState);
+    let filtered = todoList.filter((e) => e.idx !== idx);
+    setList([...filtered]);
+    setTimeout(() => setLoading((prevState) => !prevState), 500);
+  };
 
   const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      let data = inputs;
-
-      // axios.post('http://localhost:8080/formPage', data).then((res) => {
-      //   console.log(res);
-      // });
-      console.log(data);
-      onReset();
+    if (e.key === 'Enter' && inputs !== '' && !isLoading) {
+      let data = { content: inputRef.current?.value, idx: day().format('MMDDHH:mm:ss') };
+      // setLoading(true);
+      const postData = async () => {
+        await axios.post('http://localhost:8080/todos', data).then(() => postManager(data));
+      };
+      postData();
     }
+  };
+
+  const deleteData = (e: React.MouseEvent<HTMLButtonElement>) => {
+    let idx = e.currentTarget.getAttribute('data-idx');
+    axios.delete(`http://localhost:8080/list/${idx}`).then(() => deleteManager(idx));
   };
 
   const OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,9 +56,15 @@ function DailyToDo() {
     setInputs(value);
   };
 
-  const onReset = () => {
-    setInputs('');
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios.get('http://localhost:8080/dailyTodo').then((res) => {
+        setList(res.data);
+      });
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -40,26 +72,37 @@ function DailyToDo() {
         <Text fontSize='xl' py='2'>
           Daily Todo List
         </Text>
-        <Input name='todo' placeholder='할 일을 입력해주세요' size='lg' onChange={OnChange} value={inputs} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)} />
-        <S.ScrollFrame>
-          <UnorderedList listStyleType='none' m='0' py='2'>
-            {toDoList.map((item: number, i: number) => {
-              return (
-                <>
-                  <ListItem display='flex' justifyContent='space-between' alignItems='center' w='100%' px={1} borderRadius='lg' _hover={{ backgroundColor: 'rgba(219, 219, 219, 0.6)' }}>
+        <form
+          action='http://localhost:8080/todos'
+          method='POST'
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}>
+          <S.TodoInput ref={inputRef} name='todo' placeholder='할 일을 입력해주세요' onChange={OnChange} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)} value={inputs} />
+        </form>
+        <C.ScrollFrame>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <UnorderedList listStyleType='none' m='0' py='2'>
+              {todoList.map((e, i) => {
+                return (
+                  <ListItem display='flex' justifyContent='space-between' alignItems='center' w='100%' px={1} borderRadius='lg' _hover={{ backgroundColor: 'rgba(219, 219, 219, 0.6)' }} key={i}>
                     <S.StyledLabel>
                       <S.StyledCheckBox type='checkbox' name='checkbox' />
                       <S.TodoElement>
-                        <Text>{item}</Text>
+                        <Text>{e.content}</Text>
                       </S.TodoElement>
                     </S.StyledLabel>
-                    <SmallCloseIcon w={7} h={7} color='red.500' _hover={{ cursor: 'pointer' }} />
+                    <button data-idx={e.idx} onClick={deleteData}>
+                      <SmallCloseIcon w={7} h={7} color='red.500' _hover={{ cursor: 'pointer' }} />
+                    </button>
                   </ListItem>
-                </>
-              );
-            })}
-          </UnorderedList>
-        </S.ScrollFrame>
+                );
+              })}
+            </UnorderedList>
+          )}
+        </C.ScrollFrame>
       </Flex>
     </>
   );

@@ -15,17 +15,15 @@ function OverduePlan() {
         <UnorderedList listStyleType='none' m='0' py='2'>
           {toDoList.map((item: number, i: number) => {
             return (
-              <>
-                <ListItem display='flex' justifyContent='space-between' alignItems='center' w='100%' _hover={{ backgroundColor: 'rgba(219, 219, 219, 0.6)' }}>
-                  <S.StyledLabel>
-                    <S.StyledCheckBox type='checkbox' name='checkbox' />
-                    <S.TodoElement>
-                      <Text>{item}</Text>
-                    </S.TodoElement>
-                  </S.StyledLabel>
-                  {/* <SmallCloseIcon w={7} h={7} color='red.500' _hover={{ cursor: 'pointer' }} /> */}
-                </ListItem>
-              </>
+              <ListItem display='flex' justifyContent='space-between' alignItems='center' w='100%' _hover={{ backgroundColor: 'rgba(219, 219, 219, 0.6)' }} key={i}>
+                <S.StyledLabel>
+                  <S.StyledCheckBox type='checkbox' name='checkbox' />
+                  <S.TodoElement>
+                    <Text>{item}</Text>
+                  </S.TodoElement>
+                </S.StyledLabel>
+                {/* <SmallCloseIcon w={7} h={7} color='red.500' _hover={{ cursor: 'pointer' }} /> */}
+              </ListItem>
             );
           })}
         </UnorderedList>

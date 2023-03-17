@@ -12,6 +12,7 @@ import Main from './layout/Main';
 import Schedule from './pages/ScheduleManagement/daily/Schedule';
 import StickerMemo from './pages/SticyNote/StickyNote';
 import Form from './pages/Form';
+import Clock from './pages/ScheduleManagement/daily/clock/Clock';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       {
-        path: '/Schedule',
+        path: '/schedule',
         element: <Schedule />,
       },
       // {
@@ -27,12 +28,16 @@ const router = createBrowserRouter([
       //   element: <MonthlyPlan />,
       // },
       {
-        path: '/StickerMemo',
+        path: '/stickermemo',
         element: <StickerMemo />,
       },
       {
-        path: '/Form',
+        path: '/form',
         element: <Form />,
+      },
+      {
+        path: '/clock',
+        element: <Clock />,
       },
     ],
   },

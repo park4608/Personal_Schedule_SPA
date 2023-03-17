@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import * as S from '../components/styled-component/TodoComponent';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import day from 'dayjs';
 
 const FormFrame = styled.div`
   display: flex;
@@ -14,24 +15,38 @@ const FormFrame = styled.div`
 type Todo = {
   date: string;
   content: string;
+  idx: string;
+};
+
+type todoList = {
+  date: string | undefined;
+  content: string | undefined;
+  idx: string | undefined;
 };
 
 function Form() {
   const [inputs, setInputs] = useState<Todo>({
     date: '',
     content: '',
+    idx: '',
   });
+
+  const [todoList, setList] = useState<todoList[]>([]);
+  // const [count, setCount] = useState<number>(todoList.length);
+
   const inputRef = useRef<null[] | HTMLInputElement[]>([]);
 
   const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       let data = {
         date: inputRef.current[0]?.value,
-        contents: inputRef.current[1]?.value,
+        content: inputRef.current[1]?.value,
+        idx: day().format('MMDDHH:mm:ss'),
       };
 
       axios.post('http://localhost:8080/formPage', data).then((res) => {
-        console.log(res);
+        // console.log(res);
+        setList([...todoList, data]);
       });
 
       onReset();
@@ -50,8 +65,25 @@ function Form() {
     setInputs({
       date: '',
       content: '',
+      idx: '',
     });
   };
+
+  const deleteData = (e: React.MouseEvent<HTMLButtonElement>) => {
+    let idx = e.currentTarget.getAttribute('data-idx');
+    console.log('delete idx:' + idx);
+    axios.delete(`http://localhost:8080/list/${idx}`);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get('http://localhost:8080/dailyTodo').then((res) => {
+        setList(res.data);
+      });
+    };
+
+    fetchData();
+  }, [todoList]);
 
   return (
     <FormFrame>
@@ -72,6 +104,18 @@ function Form() {
           onChange={OnChange}
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)}
         />
+        <ul>
+          {todoList.map((e, i) => (
+            <li>
+              <div>
+                {e.content}
+                <button type='button' style={{ backgroundColor: 'lightblue' }} onClick={deleteData} data-idx={e.idx}>
+                  삭제하기
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
       </form>
     </FormFrame>
   );

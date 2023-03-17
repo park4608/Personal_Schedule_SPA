@@ -8,6 +8,7 @@ import DailyTodo from '../pages/ScheduleManagement/daily/DailySchedule';
 import { Grid, GridItem, Flex, Button, ButtonGroup } from '@chakra-ui/react';
 import Sidebar from './Sidebar';
 import Main from './Main';
+import Navigation from './Navigation';
 
 type ChildType = {
   children: React.ReactNode;
@@ -16,8 +17,9 @@ type ChildType = {
 export default function PublicLayout() {
   return (
     <>
-      <Flex bg='#F8F9FA'>
-        <Sidebar />
+      <Flex direction='column' bg='#F8F9FA'>
+        {/* <Sidebar /> */}
+        <Navigation />
         <Main>
           <Outlet />
         </Main>

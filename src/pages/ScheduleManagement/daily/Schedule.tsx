@@ -4,6 +4,7 @@ import * as C from '../../../components/styled-component/CommonComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button } from '@chakra-ui/react';
 import DailySchedule from './DailySchedule';
 import SubWidget from './SubWidget';
+import Clock from './clock/Clock';
 
 const ToDoWidget = styled.div`
   /* border: 1px solid black; */
@@ -18,6 +19,7 @@ function Schedule() {
       <Flex minW='full' minH='90vh' direction='column' alignItems='center' justifyContent='center' bg='#F8F9FA'>
         <DailySchedule />
         <SubWidget />
+        {/* <Clock /> */}
       </Flex>
     </>
   );

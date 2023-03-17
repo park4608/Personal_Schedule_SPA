@@ -6,7 +6,7 @@ import { Container, Box, Flex, Grid, GridItem, HStack, Button } from '@chakra-ui
 import DailyToDo from './DailyToDo';
 import OverduePlan from './OverduePlan';
 import Graph from './Graph';
-import Clock from './Clock';
+import Clock from './clock/Clock';
 
 type CHILD_TYPE = {
   children: React.ReactNode;
@@ -40,8 +40,8 @@ function SubWidget() {
         <OverduePlan />
       </WidgetFrame>
       <WidgetFrame>
-        {/* <Graph /> */}
-        <Clock />
+        {/* <Graph />
+        <Clock /> */}
       </WidgetFrame>
     </Flex>
   );

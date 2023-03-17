@@ -1,5 +1,7 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
+import spinner from '../../img/spinner.svg';
+import { Image, Box } from '@chakra-ui/react';
 
 export const Container = styled.div`
   height: 100vh;
@@ -115,3 +117,17 @@ export const TodoElement = styled(OverflowHiddenDiv)`
   width: 100%;
   text-align: left;
 `;
+
+const SpinnerBg = styled.div`
+  height: 100%;
+  width: 100%;
+  text-align: center;
+`;
+
+export const Spinner = () => {
+  return (
+    <Box display='flex' justifyContent='center' alignItems='center' h='full'>
+      <Image w='100px' h='100px' src={spinner} alt='로딩중' />
+    </Box>
+  );
+};

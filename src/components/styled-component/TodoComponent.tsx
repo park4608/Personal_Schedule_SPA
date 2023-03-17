@@ -1,6 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, forwardRef } from 'react';
 import styled from 'styled-components';
-import { ToDo } from '../../Data/data';
 
 export const OverflowHiddenDiv = styled.div`
   overflow: hidden;
@@ -186,40 +185,6 @@ export const ToDoList = ({ Todos }: { Todos: ListType }) => {
   );
 };
 
-// const FrequentToDoList = () => {
-//   const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-//     event.preventDefault();
-//     console.log('clicked');
-//   };
-//   return (
-//     <>
-//       {Frequent.map((item) => {
-//         return (
-//           <>
-//             <TextHiddenLi>
-//               <Popover content={item.data} placement='topLeft'>
-//                 <OverflowHiddenDiv>{item.data}</OverflowHiddenDiv>
-//               </Popover>
-
-//               <PlusIcon onClick={clickHandler} />
-//             </TextHiddenLi>
-//             <LiDivider />
-//           </>
-//         );
-//       })}
-//     </>
-//   );
-// };
-
-// export const DailyTodoWidget = () => {
-//   <>
-//     <Frame>
-//       <FrameHeader />
-//       <ToDoList />
-//     </Frame>
-//   </>;
-// };
-
 const TableFrame = styled.div`
   border-top: 2px solid black;
   border-bottom: 2px solid black;
@@ -240,3 +205,59 @@ export const TimeList = () => {
     </>
   );
 };
+
+export const FocusBorder = styled.span`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: 99;
+`;
+
+export const StyledInput = styled.input`
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  border: 0;
+  padding: 7px 0;
+  border-bottom: 1px solid #ccc;
+
+  & ~ ${FocusBorder} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #1da1f2;
+    transition: 0.4s;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus ~ ${FocusBorder} {
+    width: 100%;
+    transition: 0.4s;
+  }
+`;
+
+interface Props {
+  name: string;
+  placeholder: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  value: string;
+}
+
+export const TodoInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
+  return (
+    <>
+      <div style={{ position: 'relative' }}>
+        <StyledInput ref={ref} name={props.name} placeholder={props.placeholder} onChange={props.onChange} onKeyDown={props.onKeyDown} value={props.value} />
+        <FocusBorder />
+      </div>
+    </>
+  );
+});

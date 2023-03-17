@@ -14,13 +14,14 @@ const LinkItems: Array<LinkItemProps> = [
   // { name: 'Monthly', icon: FiCompass },
   { name: 'StickerMemo', icon: FiStar },
   { name: 'Form', icon: FiCompass },
+  { name: 'clock', icon: FiCompass },
 ];
 
 export default function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH='100vh' w='250px' bg={useColorModeValue('gray.100', 'gray.900')}>
-      <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
+    <Box minH='100vh' minW='250px' bg={useColorModeValue('gray.100', 'gray.900')}>
+      <SidebarContent onClose={() => onClose} />
       <Drawer autoFocus={false} isOpen={isOpen} placement='left' onClose={onClose} returnFocusOnClose={false} onOverlayClick={onClose} size='full'>
         <DrawerContent>
           <SidebarContent onClose={onClose} />
