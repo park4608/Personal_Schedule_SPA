@@ -1,8 +1,8 @@
-import React, { useState, useRef, forwardRef, useEffect, ComponentProps } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import * as S from '../../../components/styled-component/TodoComponent';
 import * as C from '../../../components/styled-component/CommonComponent';
-import { chakra, Container, Box, Flex, Grid, GridItem, HStack, Button, Text, List, ListItem, ListIcon, OrderedList, UnorderedList } from '@chakra-ui/react';
+import { chakra, Container, Box, Flex, Button, Text, ListItem, ListIcon, UnorderedList } from '@chakra-ui/react';
 import { SmallCloseIcon } from '@chakra-ui/icons';
 
 import axios from 'axios';
@@ -18,6 +18,7 @@ function DailyToDo() {
   const [inputs, setInputs] = useState<string>('');
   const [todoList, setList] = useState<todoList[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [editable, setEditable] = useState<boolean>(false);
 
   const inputRef = useRef<null | HTMLInputElement>(null);
 
@@ -38,7 +39,7 @@ function DailyToDo() {
   const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputs !== '' && !isLoading) {
       let data = { content: inputRef.current?.value, idx: day().format('MMDDHH:mm:ss') };
-      // setLoading(true);
+
       const postData = async () => {
         await axios.post('http://localhost:8080/todos', data).then(() => postManager(data));
       };
@@ -87,13 +88,11 @@ function DailyToDo() {
             <UnorderedList listStyleType='none' m='0' py='2'>
               {todoList.map((e, i) => {
                 return (
-                  <ListItem display='flex' justifyContent='space-between' alignItems='center' w='100%' px={1} borderRadius='lg' _hover={{ backgroundColor: 'rgba(219, 219, 219, 0.6)' }} key={i}>
+                  <ListItem display='flex' justifyContent='space-between' alignItems='center' w='100%' px={1} py={1} borderRadius='lg' _hover={{ backgroundColor: 'rgba(219, 219, 219, 0.6)' }} key={i}>
                     <S.StyledLabel>
                       <S.StyledCheckBox type='checkbox' name='checkbox' />
-                      <S.TodoElement>
-                        <Text>{e.content}</Text>
-                      </S.TodoElement>
                     </S.StyledLabel>
+                    <S.TodoElement content={e.content} idx={e.idx} />
                     <button data-idx={e.idx} onClick={deleteData}>
                       <SmallCloseIcon w={7} h={7} color='red.500' _hover={{ cursor: 'pointer' }} />
                     </button>

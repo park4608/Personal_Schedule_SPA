@@ -1,5 +1,6 @@
-import { useState, useRef, forwardRef } from 'react';
+import { useState, useEffect, useRef, forwardRef } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 export const OverflowHiddenDiv = styled.div`
   overflow: hidden;
@@ -71,7 +72,92 @@ export const StyledCheckBox = styled.input`
   }
 `;
 
-export const TodoElement = styled(OverflowHiddenDiv)`
+// const EditInput = styled.input`
+//   width: 100%;
+
+//   &:focus {
+//     outline: none;
+//   }
+// `;
+
+type EditInputProps = {
+  value: string | undefined;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus: () => void;
+  onBlur: () => void;
+};
+
+const CustomInput = styled.input`
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+  }
+`;
+
+const EditInput = ({ value, onChange, onFocus, onBlur }: EditInputProps) => {
+  const inputRef = useRef<null | HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log('focused');
+    inputRef.current?.focus();
+  }, []);
+
+  return <CustomInput ref={inputRef} type='text' value={value} onChange={onChange} onFocus={onFocus} onBlur={onBlur} style={{ width: '100%' }} spellCheck='false' />;
+};
+
+type Content = {
+  content: string | undefined;
+  idx: string | undefined;
+};
+
+export const TodoElement = ({ content, idx }: Content) => {
+  const [text, setText] = useState<string | undefined>(content);
+  const [initialText, setInitial] = useState<string | undefined>(content);
+  const [editable, setEditable] = useState<boolean>(false);
+
+  const goEdit = () => {
+    setEditable(true);
+  };
+
+  const finishEdit = () => {
+    if (text?.trim() === '') {
+      setText(initialText);
+    } else {
+      setInitial(text);
+
+      let data = { content: text, idx: idx };
+      const postData = async () => {
+        await axios.put(`http://localhost:8080/list/${idx}`, data);
+      };
+
+      postData();
+    }
+    setEditable(false);
+  };
+
+  return (
+    <>
+      {editable ? (
+        <EditInput
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+            console.log(text);
+          }}
+          data-idx={idx}
+          onFocus={() => setInitial(text)}
+          onBlur={() => finishEdit()}
+        />
+      ) : (
+        <ListContents onClick={() => goEdit()}>{text} </ListContents>
+      )}
+    </>
+  );
+};
+
+export const ListContents = styled(OverflowHiddenDiv)`
   width: 100%;
   text-align: left;
 `;
@@ -176,7 +262,7 @@ export const ToDoList = ({ Todos }: { Todos: ListType }) => {
           <>
             <StyledLabel>
               <StyledCheckBox type='checkbox' name='checkbox' />
-              <TodoElement>{item}</TodoElement>
+              <ListContents>{item}</ListContents>
             </StyledLabel>
           </>
         );

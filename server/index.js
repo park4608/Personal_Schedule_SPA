@@ -29,10 +29,6 @@ mongoose
     console.log(err);
   });
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/test.html');
-});
-
 //post는 글쓰기 등에 많이 쓰임
 app.post('/todos', function (req, res) {
   res.send('전송완료');
@@ -84,4 +80,18 @@ app.delete('/list/:idx', function (req, res) {
   todo.deleteOne({ idx: targetIdx }).then(() => {
     console.log('delete success');
   });
+});
+
+app.put('/list/:idx', function (req, res) {
+  res.send('수정완료');
+  todo
+    .findOneAndUpdate(
+      { idx: req.body.idx },
+      {
+        $set: {
+          content: req.body.content,
+        },
+      }
+    )
+    .exec();
 });
