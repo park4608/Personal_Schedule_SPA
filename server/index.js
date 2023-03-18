@@ -9,15 +9,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const mongoose = require('mongoose');
 
-<<<<<<< HEAD
 const dayjs = require('dayjs');
 const DATE_QUERY = dayjs().format('YY-MM-DD');
 
 // const todo = mongoose.model(DATE_QUERY, { _id: Number, content: String, idx: String, isComplete: Boolean });
 const todo = mongoose.model(DATE_QUERY, { content: String, idx: String, isComplete: Boolean });
-=======
-const todo = mongoose.model('Todo', { _id: Number, date: String, content: String });
->>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
 const postCounter = mongoose.model('PostCounter', { totalPost: Number, name: String });
 
 mongoose
@@ -29,10 +25,6 @@ mongoose
       console.log('listening on 8080');
     });
   })
-<<<<<<< HEAD
-=======
-
->>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
   .catch((err) => {
     console.log(err);
   });
@@ -41,7 +33,6 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/test.html');
 });
 
-<<<<<<< HEAD
 //post는 글쓰기 등에 많이 쓰임
 app.post('/todos', function (req, res) {
   res.send('전송완료');
@@ -56,36 +47,6 @@ app.post('/todos', function (req, res) {
     if (data.content !== '' && data.content !== undefined) {
       // const toDos = new todo({ _id: id, ...data });
       const toDos = new todo({ ...data });
-=======
-app.get('/write', function (req, res) {
-  res.sendFile(__dirname + '/write.html');
-});
-
-app.get('/list', function (req, res) {
-  // todo.find({ content: '111' }, function (err, res) {
-  //   console.log(res);
-  // });
-  postCounter.findOne({ name: 'NumOfPost' }, function (err, res) {
-    console.log(res[0].totalPost);
-  });
-
-  res.sendFile(__dirname + '/list.html');
-});
-
-//post는 글쓰기 등에 많이 쓰임
-app.post('/formPage', function (req, res) {
-  res.send('전송완료');
-  // res.send(req.body.contents);
-  let id = 0;
-  const query = { name: 'NumOfPost' };
-  const data = { date: req.body.date, content: req.body.contents };
-
-  postCounter.findOne(query, function (req, res) {
-    id = res.totalPost + 1;
-
-    if (data.content !== '' && data.content !== undefined) {
-      const toDos = new todo({ _id: id, ...data });
->>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
 
       toDos.save().then(() => {
         console.log('일정 저장 성공!!');
@@ -94,7 +55,6 @@ app.post('/formPage', function (req, res) {
       postCounter.findOneAndUpdate(query, { $set: { totalPost: id } }).exec();
     }
   });
-<<<<<<< HEAD
   console.log('끝남');
 });
 
@@ -124,6 +84,4 @@ app.delete('/list/:idx', function (req, res) {
   todo.deleteOne({ idx: targetIdx }).then(() => {
     console.log('delete success');
   });
-=======
->>>>>>> abb34d02bd52eea33e785fef6c0a7e60588fa881
 });
