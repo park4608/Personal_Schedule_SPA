@@ -13,7 +13,7 @@ import Navigation from './Navigation';
 export default function PublicLayout() {
   return (
     <>
-      <Flex direction='column' bg='#F8F9FA'>
+      <Flex direction='column' bg='#F8F9FA' h='100vh'>
         <Navigation />
         <Main>
           <Outlet />

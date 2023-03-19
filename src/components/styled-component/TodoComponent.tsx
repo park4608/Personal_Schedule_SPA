@@ -278,20 +278,6 @@ const TableFrame = styled.div`
   border-left: 1px solid black;
 `;
 
-const Block = styled.div`
-  height: 35px;
-  width: 350px;
-  border: 1px solid limegreen;
-`;
-
-export const TimeList = () => {
-  return (
-    <>
-      <TableFrame></TableFrame>
-    </>
-  );
-};
-
 export const FocusBorder = styled.span`
   position: absolute;
   bottom: 0;
@@ -333,7 +319,7 @@ interface Props {
   name: string;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   value: string;
 }
 

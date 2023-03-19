@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import DayJS from 'react-dayjs';
+import day from 'dayjs';
 import styled from 'styled-components';
 import * as C from '../../../components/styled-component/CommonComponent';
 import * as S from '../../../components/styled-component/TodoComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button, Text } from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 
-import DayJS from 'react-dayjs';
-import day from 'dayjs';
+import AddScheduleBtn from './AddScheduleBtn';
 
 const DateHeader = styled.h3`
   font-size: 32px;
@@ -62,14 +63,15 @@ function DailySchedule() {
             </Box>
           </Box>
           <HStack spacing={4} align='center' justify='flex-end' px='10' py='4'>
-            <Button colorScheme='twitter' size='md'>
+            {/* <Button colorScheme='twitter' size='md'>
               <Text pr='1'> 일정수정/삭제</Text>
               <EditIcon />
-            </Button>
-            <Button colorScheme='twitter' size='md'>
+            </Button> */}
+            {/* <Button colorScheme='twitter' size='md'>
               <Text pr='1'>일정 추가 </Text>
               <AddIcon />
-            </Button>
+            </Button> */}
+            <AddScheduleBtn />
           </HStack>
         </Box>
       </Flex>
