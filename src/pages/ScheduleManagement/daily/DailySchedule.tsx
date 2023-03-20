@@ -7,6 +7,7 @@ import * as S from '../../../components/styled-component/TodoComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button, Text } from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 
+import Clock from './clock/Clock';
 import AddScheduleBtn from './AddScheduleBtn';
 
 const DateHeader = styled.h3`
@@ -33,7 +34,10 @@ function DailySchedule() {
     <>
       <Flex direction='column' justify='center' align='center' w='100%' bg='white' borderRadius='lg' boxShadow='rgba(149, 157, 165, 0.2) 0px 4px 12px'>
         <DateHeader>
-          <DayJS format='YYYY MMM DD'>{date}</DayJS>
+          <Flex alignItems='center'>
+            <DayJS format='YYYY MMM DD'>{date}</DayJS>
+            <Clock />
+          </Flex>
         </DateHeader>
         <Box w='full'>
           <Box py='8'>

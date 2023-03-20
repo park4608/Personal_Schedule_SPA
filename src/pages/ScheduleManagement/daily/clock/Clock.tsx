@@ -15,25 +15,25 @@ const TimerChar: React.FC<TimerCharProps> = (props: TimerCharProps) => {
     return <h1 className={`${styles['timer-char']} ${styles.colon}`}>:</h1>;
   }
 
-  const number: number = parseInt(props.char);
+  const numbers: number = parseInt(props.char);
 
   const getCharSlider = (): JSX.Element => {
     let options: JSX.Element[] = [];
 
     for (let i: number = 0; i <= 9; i++) {
-      const classes: string = classNames('timer-char-slider-option', {
-        active: number === i,
+      const classes: string = classNames({
+        active: numbers === i,
       });
 
       options.push(
-        <span key={i} className={classes}>
+        <span key={i} className={`${styles['timer-char-slider-option']} ${styles[classes]}`}>
           {i}
         </span>
       );
     }
 
     const height: number = ref.current ? ref.current.offsetHeight : 0,
-      top: string = `${number * height * -1}px`;
+      top: string = `${numbers * height * -1}px`;
 
     return (
       <div className={styles['timer-char-slider']} style={{ top }}>
@@ -89,10 +89,8 @@ function Clock() {
   };
 
   return (
-    <div style={{ alignItems: 'center', display: 'flex', height: '100vh', justifyContent: 'center', width: '100vw' }}>
-      <div className={styles.timer}>
-        <div className={styles['timer-text']}>{getChars()}</div>
-      </div>
+    <div className={styles.timer}>
+      <div className={styles['timer-text']}>{getChars()}</div>
     </div>
   );
 }

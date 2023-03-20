@@ -8,6 +8,7 @@ import PublicLayout from './layout/PublicLayout';
 import Schedule from './pages/ScheduleManagement/daily/Schedule';
 // import MonthlyPlan from './pages/ScheduleManagement/MonthlyPlan';
 import StickerMemo from './pages/SticyNote/StickyNote';
+import Clock from './pages/ScheduleManagement/daily/clock/Clock';
 import Form from './pages/Form';
 
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/form',
         element: <Form />,
+      },
+      {
+        path: '/clock',
+        element: <Clock />,
       },
     ],
   },
