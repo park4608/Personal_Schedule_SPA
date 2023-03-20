@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import spinner from '../../img/spinner.svg';
-import { Image, Box } from '@chakra-ui/react';
+import { Image, Box, background } from '@chakra-ui/react';
 
 export const Container = styled.div`
   height: 100vh;
@@ -131,3 +131,8 @@ export const Spinner = () => {
     </Box>
   );
 };
+
+export const BgStyledDiv = styled.div<{ bgColor: string | null }>`
+  background-color: ${(props) => props.bgColor || '#fff'};
+  transition: background-color 0.5s ease;
+`;

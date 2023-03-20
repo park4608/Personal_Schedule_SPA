@@ -10,7 +10,7 @@ import Schedule from './pages/ScheduleManagement/daily/Schedule';
 import StickerMemo from './pages/SticyNote/StickyNote';
 import Form from './pages/Form';
 
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 const router = createBrowserRouter([
   {
@@ -37,11 +37,17 @@ const router = createBrowserRouter([
   },
 ]);
 
+const theme = extendTheme({
+  colors: {
+    palette: { 100: '#e1167d', 200: '#e31733', 300: '#e39b15', 400: '#c7e664', 500: '#61e3ca', 600: '#cd78f1', 700: '#d3dae4', 800: '#000000' },
+  },
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <RouterProvider router={router} />
     </ChakraProvider>
   </React.StrictMode>

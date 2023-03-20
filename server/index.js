@@ -13,7 +13,8 @@ const dayjs = require('dayjs');
 const DATE_QUERY = dayjs().format('YY-MM-DD');
 
 // const todo = mongoose.model(DATE_QUERY, { _id: Number, content: String, idx: String, isComplete: Boolean });
-const todo = mongoose.model(DATE_QUERY, { content: String, idx: String, isComplete: Boolean });
+const todoBoard = mongoose.model(DATE_QUERY + 'B', { startTime: String, endTime: String, content: String, color: String });
+const todo = mongoose.model(DATE_QUERY + 'D', { content: String, idx: String, isComplete: Boolean });
 const postCounter = mongoose.model('PostCounter', { totalPost: Number, name: String });
 
 mongoose
@@ -29,10 +30,18 @@ mongoose
     console.log(err);
   });
 
+app.post('/scheduleBoard', function (req, res) {
+  res.send('일정 전송완료');
+  const data = { startTime: req.body.startTime, endTime: req.body.endTime, content: req.body.content, color: req.body.color };
+
+  const boardItem = new todoBoard({ ...data });
+  boardItem.save().then(() => console.log('board 저장성공!!'));
+  console.log(boardItem);
+});
+
 //post는 글쓰기 등에 많이 쓰임
 app.post('/todos', function (req, res) {
   res.send('전송완료');
-  console.log('시작함');
   let id = 0;
   const query = { name: 'NumOfPost' };
   const data = { content: req.body.content, idx: req.body.idx };
