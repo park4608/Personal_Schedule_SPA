@@ -53,7 +53,6 @@ function AddScheduleBtn() {
   const OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     setValidation((prevState) => ({ ...prevState, [e.target.name]: e.target.value !== '' ? true : false }));
-    console.log(validate);
   };
 
   const ChangeColor = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -65,7 +64,7 @@ function AddScheduleBtn() {
     setStart((prevState) => '00:00');
     setEnd((prevState) => '00:00');
     setBgColor((prevState) => '#d3dae4');
-    setValidation((prevState) => ({ ...prevState, ['isTimeValid']: false, ['isContentValid']: false }));
+    setValidation((prevState) => ({ ...prevState, isTimeValid: false, isContentValid: false }));
   };
 
   const SubmitData = () => {

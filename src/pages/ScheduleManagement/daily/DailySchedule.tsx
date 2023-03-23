@@ -67,14 +67,6 @@ function DailySchedule() {
             </Box>
           </Box>
           <HStack spacing={4} align='center' justify='flex-end' px='10' py='4'>
-            {/* <Button colorScheme='twitter' size='md'>
-              <Text pr='1'> 일정수정/삭제</Text>
-              <EditIcon />
-            </Button> */}
-            {/* <Button colorScheme='twitter' size='md'>
-              <Text pr='1'>일정 추가 </Text>
-              <AddIcon />
-            </Button> */}
             <AddScheduleBtn />
           </HStack>
         </Box>

@@ -44,7 +44,10 @@ const router = createBrowserRouter([
 
 const theme = extendTheme({
   colors: {
-    palette: { 100: '#e1167d', 200: '#e31733', 300: '#e39b15', 400: '#c7e664', 500: '#61e3ca', 600: '#cd78f1', 700: '#d3dae4', 800: '#000000' },
+    palette: { pink: '#e1167d', red: '#e31733', orange: '#e39b15', aqua: '#61e3ca', lightgreen: '#c7e664', purple: '#cd78f1', gray: '#d3dae4', black: '#000000' },
+    text: { sub: '#E1E1E1', main: '#000' },
+    button: { skyblue: '#1DA1F2' },
+    bg: { 100: '#F8F9FA' },
   },
 });
 

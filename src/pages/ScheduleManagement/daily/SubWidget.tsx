@@ -14,17 +14,7 @@ type CHILD_TYPE = {
 
 const WidgetFrame = ({ children }: CHILD_TYPE) => {
   return (
-    <Box
-      display='flex'
-      alignItems='center'
-      justifyContent='center'
-      w='450px'
-      h='390px'
-      p={4}
-      bg='#fff'
-      borderRadius='lg'
-      boxShadow='rgba(149, 157, 165, 0.2) 0px 4px 12px'
-      _hover={{ boxShadow: 'rgba(0, 0, 0, 0.15) 0px 1px 3px' }}>
+    <Box display='flex' alignItems='center' justifyContent='center' w='450px' h='390px' p={4} bg='#fff' borderRadius='lg' boxShadow='rgba(149, 157, 165, 0.2) 0px 4px 12px' _hover={{ boxShadow: 'rgba(0, 0, 0, 0.15) 0px 1px 3px' }}>
       {children}
     </Box>
   );
@@ -42,6 +32,7 @@ function SubWidget() {
       <WidgetFrame>
         {/* <Graph />
         <Clock /> */}
+        <Button textColor='red.600'>test</Button>
       </WidgetFrame>
     </Flex>
   );

@@ -50,7 +50,7 @@ const TimerChar: React.FC<TimerCharProps> = (props: TimerCharProps) => {
 };
 
 function Clock() {
-  const [date, setDateTo] = React.useState<Date>(new Date());
+  const [date, setDateTo] = useState<Date>(new Date());
 
   useEffect(() => {
     const interval: NodeJS.Timeout = setInterval(() => {
@@ -71,7 +71,8 @@ function Clock() {
   };
 
   const getHours = (hours: number): number => {
-    return hours % 12 === 0 ? 12 : hours % 12;
+    // return hours % 12 === 0 ? 12 : hours % 12;
+    return hours;
   };
 
   const getTime = (): string => {

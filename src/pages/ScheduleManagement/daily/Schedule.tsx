@@ -16,7 +16,7 @@ const ToDoWidget = styled.div`
 function Schedule() {
   return (
     <>
-      <Flex minW='full' minH='90vh' direction='column' alignItems='center' justifyContent='center' bg='#F8F9FA'>
+      <Flex minW='full' minH='90vh' direction='column' alignItems='center' justifyContent='center' bg='bg.100'>
         <DailySchedule />
         <SubWidget />
         {/* <Clock /> */}

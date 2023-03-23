@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import corkboard from './corkboard.jpg';
 import styled from 'styled-components';
 
@@ -60,20 +60,43 @@ const Box = styled.div`
   }
 `;
 
+type Offset = {
+  x: number;
+  y: number;
+};
+
 function StickyNote() {
+  const [offset, setOffset] = useState<Offset>({
+    x: 0,
+    y: 0,
+  });
+
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  const mouseClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // console.log(offset);
+    setOffset({ ...offset, x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
+    if (boxRef.current !== null) {
+      boxRef.current.style.left = e.nativeEvent.offsetX.toString() + 'px';
+      boxRef.current.style.top = e.nativeEvent.offsetY.toString() + 'px';
+    }
+  };
+
+  useEffect(() => {
+    if (boxRef.current !== null) {
+      console.log('useeffect');
+      console.log(boxRef.current?.style.left);
+      console.log(boxRef.current?.style.top);
+    }
+  }, [offset]);
+
   return (
     <>
       <BoardFrame>
-        <Board>
+        <Board onClick={mouseClick}>
           <AddBtn>+</AddBtn>
-          <Box color={'#ED1D21'}>
-            <p>
-              We are exposed to a lot of stress in our lives. Then what should I do when I'm stressed? From now on, I will introduce my own stress relief method. First, eat delicious food with the
-              person you like. When you're with someone you like, you will get dopamine. If you eat delicious food there, your stress will disappears quickly. The second thing is to immerse
-              yourself.We are exposed to a lot of stress in our lives. Then what should I do when I'm stressed? From now on, I will introduce my own stress relief method. First, eat delicious food
-              with the person you like. When you're with someone you like, you will get dopamine. If you eat delicious food there, your stress will disappears quickly. The second thing is to immerse
-              yourself.
-            </p>
+          <Box ref={boxRef} style={{ position: 'absolute', top: `${offset.y}`, left: `${offset.x}` }} color={'#ED1D21'}>
+            <p>We are exposed to a lot of stress in our lives. Then what should I do when I'm stressed? From now on, I will introduce my own stress relief method. First, eat delicious food with the person you like. When you're with someone you like, you will get dopamine. If you eat delicious food there, your stress will disappears quickly. The second thing is to immerse yourself.We are exposed to a lot of stress in our lives. Then what should I do when I'm stressed? From now on, I will introduce my own stress relief method. First, eat delicious food with the person you like. When you're with someone you like, you will get dopamine. If you eat delicious food there, your stress will disappears quickly. The second thing is to immerse yourself.</p>
           </Box>
           <Box color={'#F49521'}>Hello</Box>
           <Box color={'#FF4DA0'}>Hello</Box>
