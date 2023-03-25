@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as C from '../../../components/styled-component/CommonComponent';
+import * as C from '../../../../components/styled-component/CommonComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button } from '@chakra-ui/react';
-import DailySchedule from './DailySchedule';
-import SubWidget from './SubWidget';
-import Clock from './clock/Clock';
+import ScheduleBoard from '../board/ScheduleBoard';
+import SubWidget from '../SubWidget';
+import Clock from '../../../../components/clock/Clock';
 
 const ToDoWidget = styled.div`
   /* border: 1px solid black; */
@@ -17,7 +17,7 @@ function Schedule() {
   return (
     <>
       <Flex minW='full' minH='90vh' direction='column' alignItems='center' justifyContent='center' bg='bg.100'>
-        <DailySchedule />
+        <ScheduleBoard />
         <SubWidget />
         {/* <Clock /> */}
       </Flex>

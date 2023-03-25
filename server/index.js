@@ -12,9 +12,9 @@ const mongoose = require('mongoose');
 const dayjs = require('dayjs');
 const DATE_QUERY = dayjs().format('YY-MM-DD');
 
-// const todo = mongoose.model(DATE_QUERY, { _id: Number, content: String, idx: String, isComplete: Boolean });
 const todoBoard = mongoose.model(DATE_QUERY + 'B', { startTime: String, endTime: String, content: String, color: String });
 const todo = mongoose.model(DATE_QUERY + 'D', { content: String, idx: String, isComplete: Boolean });
+
 const postCounter = mongoose.model('PostCounter', { totalPost: Number, name: String });
 
 mongoose
@@ -37,6 +37,13 @@ app.post('/scheduleBoard', function (req, res) {
   const boardItem = new todoBoard({ ...data });
   boardItem.save().then(() => console.log('board 저장성공!!'));
   console.log(boardItem);
+});
+
+app.get('/scheduleBoard', function (req, res) {
+  todoBoard.find({}).then((e) => {
+    console.log('완료');
+    res.send(e);
+  });
 });
 
 //post는 글쓰기 등에 많이 쓰임

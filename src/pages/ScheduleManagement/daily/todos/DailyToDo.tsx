@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import * as S from '../../../components/styled-component/TodoComponent';
-import * as C from '../../../components/styled-component/CommonComponent';
+import * as S from '../../../../components/styled-component/TodoComponent';
+import * as C from '../../../../components/styled-component/CommonComponent';
 import { chakra, Container, Box, Flex, Button, Text, ListItem, ListIcon, UnorderedList } from '@chakra-ui/react';
 import { SmallCloseIcon } from '@chakra-ui/icons';
 
 import axios from 'axios';
 import day from 'dayjs';
-import { Spinner } from './../../../components/styled-component/CommonComponent';
+import { Spinner } from '../../../../components/styled-component/CommonComponent';
 
 type todoList = {
   content: string | undefined;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as S from '../../../components/styled-component/TodoComponent';
-import * as C from '../../../components/styled-component/CommonComponent';
+import * as S from '../../../../components/styled-component/TodoComponent';
+import * as C from '../../../../components/styled-component/CommonComponent';
 import { Button, Text, Flex, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, Select, UnorderedList, ListItem } from '@chakra-ui/react';
 import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import { Cursor } from 'mongoose';
@@ -21,7 +21,7 @@ interface Validation {
   isContentValid: boolean;
 }
 
-function AddScheduleBtn() {
+function AddSchedule() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [input, setInput] = useState<string>('');
   const [start, setStart] = useState<string>('00:00');
@@ -99,16 +99,20 @@ function AddScheduleBtn() {
                 시간:
               </Text>
               <Select name='isTimeValid' variant='flushed' placeholder='00:00' w='70px' onChange={ChangeStartTime}>
-                {TIME_SELECT.map((time) => (
-                  <option value={time}>{time}</option>
+                {TIME_SELECT.map((time, i) => (
+                  <option value={time} key={i}>
+                    {time}
+                  </option>
                 ))}
               </Select>
               <Text fontSize='xl' px={1}>
                 ~
               </Text>
               <Select name='isTimeValid' variant='flushed' placeholder='00:00' w='70px' onChange={ChangeEndTime}>
-                {TIME_SELECT.map((time) => (
-                  <option value={time}>{time}</option>
+                {TIME_SELECT.map((time, i) => (
+                  <option value={time} key={i}>
+                    {time}
+                  </option>
                 ))}
               </Select>
               {validate.isTimeValid ? null : <Text color='red.500'>시간이 유효하지 않습니다.</Text>}
@@ -126,8 +130,8 @@ function AddScheduleBtn() {
                   배경색
                 </Text>
                 <Flex justifyContent='space-between' w='250px'>
-                  {colorPalette.map((color) => (
-                    <Box data-color={color} onClick={ChangeColor} w='20px' h='20px' backgroundColor={color} borderRadius='md' _hover={{ cursor: 'pointer' }} />
+                  {colorPalette.map((color, i) => (
+                    <Box data-color={color} onClick={ChangeColor} w='20px' h='20px' backgroundColor={color} borderRadius='md' _hover={{ cursor: 'pointer' }} key={i} />
                   ))}
                 </Flex>
               </Flex>
@@ -144,4 +148,4 @@ function AddScheduleBtn() {
   );
 }
 
-export default AddScheduleBtn;
+export default AddSchedule;

@@ -65,7 +65,7 @@ type Offset = {
   y: number;
 };
 
-function StickyNote() {
+function NoteBoard() {
   const [offset, setOffset] = useState<Offset>({
     x: 0,
     y: 0,
@@ -98,18 +98,24 @@ function StickyNote() {
           <Box ref={boxRef} style={{ position: 'absolute', top: `${offset.y}`, left: `${offset.x}` }} color={'#ED1D21'}>
             <p>We are exposed to a lot of stress in our lives. Then what should I do when I'm stressed? From now on, I will introduce my own stress relief method. First, eat delicious food with the person you like. When you're with someone you like, you will get dopamine. If you eat delicious food there, your stress will disappears quickly. The second thing is to immerse yourself.We are exposed to a lot of stress in our lives. Then what should I do when I'm stressed? From now on, I will introduce my own stress relief method. First, eat delicious food with the person you like. When you're with someone you like, you will get dopamine. If you eat delicious food there, your stress will disappears quickly. The second thing is to immerse yourself.</p>
           </Box>
-          <Box color={'#F49521'}>Hello</Box>
+          <Box
+            color={'#F49521'}
+            onClick={(e) => {
+              e.preventDefault();
+            }}>
+            Hello
+          </Box>
           <Box color={'#FF4DA0'}>Hello</Box>
-          <Box color={'#FFCA00'}>Hello</Box>
+          {/* <Box color={'#FFCA00'}>Hello</Box>
           <Box color={'#EBD800'}>Hello</Box>
           <Box color={'#CEE847'}>Hello</Box>
           <Box color={'#77D4E5'}>Hello</Box>
           <Box color={'#0375BC'}>Hello</Box>
-          <Box color={'#96238C'}>Hello</Box>
+          <Box color={'#96238C'}>Hello</Box> */}
         </Board>
       </BoardFrame>
     </>
   );
 }
 
-export default StickyNote;
+export default NoteBoard;

@@ -1,13 +1,10 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Flex, Avatar, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack } from '@chakra-ui/react';
+import { Box, Flex, Avatar, Image, HStack, IconButton, Button, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useDisclosure, useColorModeValue, Stack } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import njs from '../img/njs3.png';
 
-const Links = ['Schedule', 'StickerMemo', 'Form', 'Clock'];
-
-interface Props {
-  linkName: string;
-}
+const Links = ['Schedule', 'StickerMemo'];
 
 const NavLink = ({ children }: { children: ReactNode }) => {
   return (
@@ -33,7 +30,9 @@ export default function WithAction() {
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton size={'md'} icon={isOpen ? <CloseIcon /> : <HamburgerIcon />} aria-label={'Open Menu'} display={{ md: 'none' }} onClick={isOpen ? onClose : onOpen} />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>Logo</Box>
+            <Box>
+              <Image src={njs} w={12} h={12} />
+            </Box>
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
                 <NavLink key={link}>

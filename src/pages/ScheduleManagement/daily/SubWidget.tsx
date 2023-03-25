@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import * as C from '../../../components/styled-component/CommonComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button } from '@chakra-ui/react';
 
-import DailyToDo from './DailyToDo';
+import DailyToDo from './todos/DailyToDo';
 import OverduePlan from './OverduePlan';
 import Graph from './Graph';
-import Clock from './clock/Clock';
+import Clock from '../../../components/clock/Clock';
 
 type CHILD_TYPE = {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import React, { ReactNode, useState, useEffect } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { Home, CalendarToday, Calendar, File } from '../components/Icons/MenuIcons';
-import Schedule from '../pages/ScheduleManagement/daily/Schedule';
+import Schedule from '../pages/ScheduleManagement/daily/todos/Schedule';
 
 import { Box, Flex } from '@chakra-ui/react';
 

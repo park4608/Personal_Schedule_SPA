@@ -7,7 +7,7 @@ type ChildType = {
 
 function Main({ children }: ChildType) {
   return (
-    <Container maxW='3xl' minW='1450px' h='100%' centerContent justifyContent='center'>
+    <Container maxW='xl' minW='1450px' h='100%' centerContent justifyContent='center'>
       {children}
     </Container>
   );
