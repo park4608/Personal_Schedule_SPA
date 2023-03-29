@@ -31,7 +31,7 @@ function BoardCell({ startTime, endTime, content, bgColor }: BoardData) {
   };
   return (
     <GridItem w='100%' h='100%' colSpan={calColspan(startTime, endTime)} colStart={1 + calColStart(startTime)}>
-      <Box w='100%' h='100%' bg='purple.500' px={3} py={1} borderRadius={6} fontSize='xm' textColor='text.mainW'>
+      <Box w='100%' h='100%' bg={bgColor} px={3} py={1} borderRadius={6} fontSize='xm' textColor='text.mainW'>
         {content}
       </Box>
     </GridItem>

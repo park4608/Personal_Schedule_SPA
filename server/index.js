@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 const dayjs = require('dayjs');
 const DATE_QUERY = dayjs().format('YY-MM-DD');
 
-const todoBoard = mongoose.model(DATE_QUERY + 'B', { startTime: String, endTime: String, content: String, color: String });
+const todoBoard = mongoose.model(DATE_QUERY + 'B', { startTime: String, endTime: String, content: String, bgColor: String });
 const todo = mongoose.model(DATE_QUERY + 'D', { content: String, idx: String, isComplete: Boolean });
 
 const postCounter = mongoose.model('PostCounter', { totalPost: Number, name: String });
@@ -32,7 +32,7 @@ mongoose
 
 app.post('/scheduleBoard', function (req, res) {
   res.send('일정 전송완료');
-  const data = { startTime: req.body.startTime, endTime: req.body.endTime, content: req.body.content, color: req.body.color };
+  const data = { startTime: req.body.startTime, endTime: req.body.endTime, content: req.body.content, bgColor: req.body.bgColor };
 
   const boardItem = new todoBoard({ ...data });
   boardItem.save().then(() => console.log('board 저장성공!!'));

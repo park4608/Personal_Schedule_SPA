@@ -19,7 +19,7 @@ type BoardData = {
 interface CellState {
   boardData: BoardData[];
   fetchData: () => Promise<void>;
-  updateData: (updated: BoardData[]) => void;
+  updateData: (updated: BoardData) => void;
 }
 
 export const useCellStore = create<CellState>((set) => ({
@@ -33,10 +33,21 @@ export const useCellStore = create<CellState>((set) => ({
   ],
   fetchData: async () => {
     const res = await axios.get('http://localhost:8080/scheduleBoard');
-    set({ boardData: await res.data });
-  },
-  updateData: (updated: BoardData[]) =>
+    let tmp;
     set({
-      boardData: [...updated],
-    }),
+      boardData: await (tmp = res.data.sort((a: BoardData, b: BoardData) => {
+        if (a.startTime < b.startTime) return -1;
+        else return 1;
+      })),
+    });
+  },
+  updateData: (newData: BoardData) => {
+    let tmp = [];
+    set((state) => ({
+      boardData: (tmp = [...state.boardData, newData].sort((a, b) => {
+        if (a.startTime < b.startTime) return -1;
+        else return 1;
+      })),
+    }));
+  },
 }));

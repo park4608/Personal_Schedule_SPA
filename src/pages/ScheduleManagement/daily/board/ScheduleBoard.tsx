@@ -39,7 +39,7 @@ function ScheduleBoard() {
           </Flex>
         </B.DateHeader>
         <Box w='full' overflowX='auto' h='200px'>
-          <Flex px='6' alignItems='center' justifyContent='space-between' w='3080px'>
+          <Flex px='6' alignItems='center' justifyContent='space-between' w='3070px'>
             {TIME_ONE.map((time, i) => (
               <span key={i}>{time}</span>
             ))}
@@ -54,6 +54,7 @@ function ScheduleBoard() {
           {/* <HStack spacing={4} align='center' justify='flex-end' py='20px' pr='30px'>
             
           </HStack> */}
+          <Button onClick={click}>test</Button>
         </Box>
         <Box position='absolute' top='180px' left='1270px'>
           <AddSchedule />
