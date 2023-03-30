@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useCellStore } from '../../../../store/store';
 import * as S from '../../../../components/styled-component/TodoComponent';
 import * as C from '../../../../components/styled-component/CommonComponent';
 import * as B from '../../../../components/styled-component/BoardComponent';
 import { Button, Text, Flex, Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, Select, UnorderedList, ListItem } from '@chakra-ui/react';
-import { AddIcon, EditIcon } from '@chakra-ui/icons';
+import { AddIcon } from '@chakra-ui/icons';
+import ColorPicker from '../../../../components/ColorPicker';
 
 import axios from 'axios';
 
@@ -18,12 +19,16 @@ interface Validation {
   isContentValid: boolean;
 }
 
+const TIME_SELECT = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00'];
+
+const colorPalette = ['palette.pink', 'palette.red', 'palette.orange', 'palette.aqua', 'palette.lightgreen', 'palette.purple', 'palette.gray', 'palette.black'];
+
 function AddSchedule() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { boardData, fetchData, updateData } = useCellStore();
   const [input, setInput] = useState<string>('');
-  const [start, setStart] = useState<string>('00:00');
-  const [end, setEnd] = useState<string>('00:00');
+  const [start, setStart] = useState<string>('09:00');
+  const [end, setEnd] = useState<string>('09:00');
   const [color, setColor] = useState<string>('#d3dae4');
 
   const [validate, setValidation] = useState<Validation>({
@@ -36,10 +41,6 @@ function AddSchedule() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const TIME_SELECT = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00'];
-
-  const colorPalette = ['palette.pink', 'palette.red', 'palette.orange', 'palette.aqua', 'palette.lightgreen', 'palette.purple', 'palette.gray', 'palette.black'];
 
   const ChangeStartTime = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStart(e.target.value);
@@ -56,13 +57,13 @@ function AddSchedule() {
     setValidation((prevState) => ({ ...prevState, [e.target.name]: e.target.value !== '' ? true : false }));
   };
 
-  const ChangeColor = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log(e.currentTarget.getAttribute('data-color'));
-    let colorAttr = e.currentTarget.getAttribute('data-color');
-    if (colorAttr !== null) {
-      setColor(colorAttr);
-    }
-  };
+  // const ChangeColor = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   console.log(e.currentTarget.getAttribute('data-color'));
+  //   let colorAttr = e.currentTarget.getAttribute('data-color');
+  //   if (colorAttr !== null) {
+  //     setColor(colorAttr);
+  //   }
+  // };
 
   const ResetModal = () => {
     setStart((prevState) => '00:00');
@@ -85,7 +86,6 @@ function AddSchedule() {
       content: input,
       bgColor: color,
     };
-    console.log(data);
 
     const submitData = async () => {
       let valid = true;
@@ -108,10 +108,10 @@ function AddSchedule() {
         return;
       } else {
         await axios.post('http://localhost:8080/scheduleBoard', data).then(() => {
-          ResetModal();
           updateData(data);
         });
       }
+      ResetModal();
     };
 
     submitData();
@@ -135,17 +135,17 @@ function AddSchedule() {
               <Text fontSize='xl' pr={2}>
                 시간:
               </Text>
-              <Select name='isTimeValid' variant='flushed' placeholder='00:00' w='70px' onChange={ChangeStartTime}>
+              <Select name='isTimeValid' variant='flushed' w='70px' onChange={ChangeStartTime}>
                 {TIME_SELECT.map((time, i) => (
                   <option value={time} key={i}>
                     {time}
                   </option>
                 ))}
               </Select>
-              <Text fontSize='xl' px={1}>
+              <Text fontSize='2xl' px={5}>
                 ~
               </Text>
-              <Select name='isTimeValid' variant='flushed' placeholder='00:00' w='70px' onChange={ChangeEndTime}>
+              <Select name='isTimeValid' variant='flushed' w='70px' onChange={ChangeEndTime}>
                 {TIME_SELECT.map((time, i) => (
                   <option value={time} key={i}>
                     {time}
@@ -166,18 +166,24 @@ function AddSchedule() {
                 <Text fontSize='xl' pr={2}>
                   배경색
                 </Text>
-                <Flex justifyContent='space-between' w='250px'>
-                  {colorPalette.map((color, i) => (
-                    <Box data-color={color} onClick={ChangeColor} w='20px' h='20px' backgroundColor={color} borderRadius='md' _hover={{ cursor: 'pointer' }} key={i} />
-                  ))}
-                </Flex>
+                <Box py={2}>
+                  <ColorPicker setColor={setColor} />
+                </Box>
               </Flex>
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={SubmitData} backgroundColor={validate ? 'twitter' : '#A0A0A0'} isDisabled={!(validate.isTimeValid && validate.isContentValid)}>
-              <Text>추가하기</Text>
-            </Button>
+            <Flex direction='column' w='100%'>
+              <Text fontSize='xl' pr={2}>
+                미리보기
+              </Text>
+              <Flex justify='space-between' align='center'>
+                <B.ShowSampleBox bgColor={color}>{input}</B.ShowSampleBox>
+                <Button onClick={SubmitData} backgroundColor={validate ? 'twitter' : '#A0A0A0'} isDisabled={!(validate.isTimeValid && validate.isContentValid)}>
+                  <Text>추가하기</Text>
+                </Button>
+              </Flex>
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>
