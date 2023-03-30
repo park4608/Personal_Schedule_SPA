@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useCellStore } from '../../../../store/store';
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 type BoardData = {
   startTime: string;
@@ -11,6 +14,9 @@ type BoardData = {
 };
 
 function BoardCell({ startTime, endTime, content, bgColor }: BoardData) {
+  const [hover, sethover] = useState(false);
+  const { deleteData } = useCellStore();
+
   const calColspan = (start: string, end: string) => {
     const startTime: string[] = start.split(':');
     const endTime: string[] = end.split(':');
@@ -23,17 +29,27 @@ function BoardCell({ startTime, endTime, content, bgColor }: BoardData) {
 
   const calColStart = (start: string) => {
     const startTime: string[] = start.split(':');
-
     const hour = parseInt(startTime[0]) - 9;
     const minute = parseInt(startTime[1]);
     const result = hour * 2 + minute / 30;
     return result;
   };
+
+  const DeleteData = () => {
+    axios.delete('http://localhost:8080/scheduleBoard', { data: { startTime: startTime, endTime: endTime } }).then((e) => deleteData(e.data));
+  };
+
   return (
     <GridItem w='100%' h='100%' colSpan={calColspan(startTime, endTime)} colStart={1 + calColStart(startTime)}>
-      <Box w='100%' h='100%' bg={bgColor} px={3} py={1} borderRadius={6} fontSize='xm' textColor='text.mainW'>
-        {content}
-      </Box>
+      <Flex w='100%' h='100%' bg={bgColor} px={3} py={1} borderRadius={6} fontSize='xm' textColor='text.mainW' onMouseOver={() => sethover(true)} onMouseLeave={() => sethover(false)}>
+        <Text w='65%'>{content}</Text>
+        {hover ? (
+          <Box>
+            <EditIcon style={{ cursor: 'pointer' }} />
+            <DeleteIcon style={{ cursor: 'pointer' }} onClick={DeleteData} />
+          </Box>
+        ) : null}
+      </Flex>
     </GridItem>
   );
 }

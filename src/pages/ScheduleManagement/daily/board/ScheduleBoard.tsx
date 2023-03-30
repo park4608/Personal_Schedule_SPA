@@ -18,8 +18,7 @@ const TIME_ONE = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00',
 
 function ScheduleBoard() {
   const date = day();
-  const { boardData, fetchData, updateData } = useCellStore();
-  // const [data, setData] = useState<BoardData[]>([]);
+  const { boardData, fetchData } = useCellStore();
 
   useEffect(() => {
     fetchData();
@@ -54,7 +53,6 @@ function ScheduleBoard() {
           {/* <HStack spacing={4} align='center' justify='flex-end' py='20px' pr='30px'>
             
           </HStack> */}
-          <Button onClick={click}>test</Button>
         </Box>
         <Box position='absolute' top='180px' left='1270px'>
           <AddSchedule />

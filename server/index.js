@@ -46,6 +46,10 @@ app.get('/scheduleBoard', function (req, res) {
   });
 });
 
+app.delete('/scheduleBoard', function (req, res) {
+  todoBoard.deleteOne({ startTime: req.body.startTime, endTime: req.body.endTime }).then(res.send('delete'));
+});
+
 //post는 글쓰기 등에 많이 쓰임
 app.post('/todos', function (req, res) {
   res.send('전송완료');
