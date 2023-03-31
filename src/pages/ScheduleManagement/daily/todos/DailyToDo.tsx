@@ -79,7 +79,7 @@ function DailyToDo() {
           onSubmit={(e) => {
             e.preventDefault();
           }}>
-          <S.TodoInput ref={inputRef} name='todo' placeholder='할 일을 입력해주세요' onChange={OnChange} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)} value={inputs} />
+          <S.TodoInput ref={inputRef} name='todo' placeholder='할 일을 입력해주세요' onChange={OnChange} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => activeEnter(e)} value={inputs} width={'100%'} />
         </form>
         <C.ScrollFrame>
           {isLoading ? (

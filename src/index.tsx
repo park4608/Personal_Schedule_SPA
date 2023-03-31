@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PublicLayout from './layout/PublicLayout';
-import Schedule from './pages/ScheduleManagement/daily/todos/Schedule';
+import Schedule from './pages/ScheduleManagement/daily/Schedule';
 // import MonthlyPlan from './pages/ScheduleManagement/MonthlyPlan';
 import NoteBoard from './pages/SticyNote/NoteBoard';
 import Clock from './components/clock/Clock';

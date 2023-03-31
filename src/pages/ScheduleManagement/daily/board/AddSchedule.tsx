@@ -57,14 +57,6 @@ function AddSchedule() {
     setValidation((prevState) => ({ ...prevState, [e.target.name]: e.target.value !== '' ? true : false }));
   };
 
-  // const ChangeColor = (e: React.MouseEvent<HTMLDivElement>) => {
-  //   console.log(e.currentTarget.getAttribute('data-color'));
-  //   let colorAttr = e.currentTarget.getAttribute('data-color');
-  //   if (colorAttr !== null) {
-  //     setColor(colorAttr);
-  //   }
-  // };
-
   const ResetModal = () => {
     setStart((prevState) => '00:00');
     setEnd((prevState) => '00:00');
@@ -107,11 +99,12 @@ function AddSchedule() {
         alert('이미 해당 시간에 일정이 있습니다. 시간을 다시 선택해주세요.');
         return;
       } else {
-        await axios.post('http://localhost:8080/scheduleBoard', data).then(() => {
+        await axios.post('http://localhost:8080/scheduleBoard', data).then((e) => {
+          console.log(e);
           updateData(data);
         });
       }
-      ResetModal();
+      // ResetModal();
     };
 
     submitData();
@@ -125,7 +118,7 @@ function AddSchedule() {
         <Text pr='1'>일정 추가하기 </Text>
         <AddIcon />
       </Button>
-      <Modal closeOnOverlayClick={false} onClose={onClose} isOpen={isOpen} isCentered size='2xl'>
+      <Modal closeOnOverlayClick={false} onClose={onClose} isOpen={isOpen} isCentered size='xl'>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>일정 추가</ModalHeader>
@@ -159,7 +152,7 @@ function AddSchedule() {
                 <Text fontSize='xl' pr={2}>
                   할일:
                 </Text>
-                <S.TodoInput ref={inputRef} name='isContentValid' placeholder='할 일을 입력해주세요' onChange={OnChange} value={input} />
+                <S.TodoInput ref={inputRef} name='isContentValid' placeholder='할 일을 입력해주세요' onChange={OnChange} value={input} width={'300px'} />
                 {validate.isContentValid ? null : <Text color='red.500'>내용을 입력해주세요.</Text>}
               </Flex>
               <Flex alignItems='center' py={1}>

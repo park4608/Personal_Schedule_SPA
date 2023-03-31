@@ -287,8 +287,8 @@ export const FocusBorder = styled.span`
   z-index: 99;
 `;
 
-export const StyledInput = styled.input`
-  width: 100%;
+export const StyledInput = styled.input<{ width: string }>`
+  width: ${(props) => props.width};
   box-sizing: border-box;
   letter-spacing: 1px;
   border: 0;
@@ -321,13 +321,14 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   value: string;
+  width: string;
 }
 
 export const TodoInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   return (
     <>
       <div style={{ position: 'relative' }}>
-        <StyledInput ref={ref} name={props.name} placeholder={props.placeholder} onChange={props.onChange} onKeyDown={props.onKeyDown} value={props.value} />
+        <StyledInput ref={ref} name={props.name} placeholder={props.placeholder} onChange={props.onChange} onKeyDown={props.onKeyDown} value={props.value} width={props.width} />
         <FocusBorder />
       </div>
     </>

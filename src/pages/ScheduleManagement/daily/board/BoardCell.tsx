@@ -36,7 +36,11 @@ function BoardCell({ startTime, endTime, content, bgColor }: BoardData) {
   };
 
   const DeleteData = () => {
-    axios.delete('http://localhost:8080/scheduleBoard', { data: { startTime: startTime, endTime: endTime } }).then((e) => deleteData(e.data));
+    let timeData = { startTime: startTime, endTime: endTime };
+    axios.delete('http://localhost:8080/scheduleBoard', { data: { ...timeData } }).then((e) => {
+      console.log(e);
+      deleteData(timeData);
+    });
   };
 
   return (

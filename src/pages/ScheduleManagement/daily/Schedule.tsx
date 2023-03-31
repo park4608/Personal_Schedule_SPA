@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as C from '../../../../components/styled-component/CommonComponent';
+import * as C from '../../../components/styled-component/CommonComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button } from '@chakra-ui/react';
-import ScheduleBoard from '../board/ScheduleBoard';
-import SubWidget from '../SubWidget';
-import Clock from '../../../../components/clock/Clock';
+import ScheduleBoard from './board/ScheduleBoard';
+import SubWidget from './SubWidget';
+import Clock from '../../../components/clock/Clock';
 
 const ToDoWidget = styled.div`
   /* border: 1px solid black; */

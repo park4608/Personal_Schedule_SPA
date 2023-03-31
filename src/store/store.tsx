@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { create } from 'zustand';
 
 // type BoardData = {};
@@ -16,11 +16,16 @@ type BoardData = {
   bgColor: string;
 };
 
+type TimeData = {
+  startTime: string;
+  endTime: string;
+};
+
 interface CellState {
   boardData: BoardData[];
   fetchData: () => Promise<void>;
   updateData: (updated: BoardData) => void;
-  deleteData: (targetData: BoardData) => void;
+  deleteData: (targetData: TimeData) => void;
 }
 
 export const useCellStore = create<CellState>((set) => ({
@@ -45,15 +50,14 @@ export const useCellStore = create<CellState>((set) => ({
   updateData: (newData: BoardData) => {
     let tmp = [];
     set((state) => ({
-      // boardData: (tmp = [...state.boardData, newData].sort((a, b) => {
-      //   if (a.startTime < b.startTime) return -1;
-      //   else return 1;
-      // })),
+      boardData: (tmp = [...state.boardData, newData].sort((a, b) => {
+        if (a.startTime < b.startTime) return -1;
+        else return 1;
+      })),
     }));
   },
-  deleteData: (targetData: BoardData) => {
+  deleteData: (targetData: TimeData) =>
     set((state) => ({
       boardData: state.boardData.filter((data) => data.startTime !== targetData.startTime),
-    }));
-  },
+    })),
 }));

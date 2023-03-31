@@ -4,7 +4,7 @@ import * as S from '../../../components/styled-component/CommonComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button, Text, List, ListItem, ListIcon, OrderedList, UnorderedList, background } from '@chakra-ui/react';
 import { SmallCloseIcon } from '@chakra-ui/icons';
 
-function OverduePlan() {
+function OverdueTodo() {
   const toDoList = [1, 2, 3, 4, 4, 5, 6, 7, 8, 9];
   return (
     <Flex direction='column' w='100%' h='100%'>
@@ -32,4 +32,4 @@ function OverduePlan() {
   );
 }
 
-export default OverduePlan;
+export default OverdueTodo;

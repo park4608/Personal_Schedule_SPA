@@ -4,7 +4,7 @@ import * as C from '../../../components/styled-component/CommonComponent';
 import { Container, Box, Flex, Grid, GridItem, HStack, Button } from '@chakra-ui/react';
 
 import DailyToDo from './todos/DailyToDo';
-import OverduePlan from './OverduePlan';
+import OverdueTodo from './OverdueTodo';
 import Graph from './Graph';
 import Clock from '../../../components/clock/Clock';
 
@@ -27,13 +27,9 @@ function SubWidget() {
         <DailyToDo />
       </WidgetFrame>
       <WidgetFrame>
-        <OverduePlan />
+        <OverdueTodo />
       </WidgetFrame>
-      <WidgetFrame>
-        {/* <Graph />
-        <Clock /> */}
-        <Button textColor='red.600'>test</Button>
-      </WidgetFrame>
+      <WidgetFrame>{/* <Graph />*/}</WidgetFrame>
     </Flex>
   );
 }
