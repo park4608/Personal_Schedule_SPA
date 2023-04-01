@@ -45,15 +45,28 @@ function BoardCell({ startTime, endTime, content, bgColor }: BoardData) {
 
   return (
     <GridItem w='100%' h='100%' colSpan={calColspan(startTime, endTime)} colStart={1 + calColStart(startTime)}>
-      <Flex w='100%' h='100%' bg={bgColor} px={3} py={1} borderRadius={6} fontSize='xm' textColor='text.mainW' onMouseOver={() => sethover(true)} onMouseLeave={() => sethover(false)}>
-        <Text w='65%'>{content}</Text>
-        {hover ? (
-          <Box>
-            <EditIcon style={{ cursor: 'pointer' }} />
-            <DeleteIcon style={{ cursor: 'pointer' }} onClick={DeleteData} />
-          </Box>
-        ) : null}
+      <Flex direction='column' w='100%' h='100%' bg={bgColor} px={3} py={1} borderRadius={6} fontSize='xm' textColor='text.mainW' onMouseOver={() => sethover(true)} onMouseLeave={() => sethover(false)}>
+        <Box h='24px' position='relative'>
+          {hover ? (
+            <Box position='absolute' top='0' right='0'>
+              <EditIcon mx={1} _hover={{ cursor: 'pointer' }} />
+              <DeleteIcon mx={1} _hover={{ cursor: 'pointer' }} onClick={DeleteData} />
+            </Box>
+          ) : null}
+        </Box>
+        <Text w='100%'>{content}</Text>
       </Flex>
+      {/* <Grid h='100%' bg={bgColor} px={3} py={1} borderRadius={6} fontSize='xm' textColor='text.mainW'>
+        <GridItem h='100%'>
+          <Box>
+            <EditIcon mx={2} _hover={{ cursor: 'pointer' }} />
+            <DeleteIcon mx={2} _hover={{ cursor: 'pointer' }} onClick={DeleteData} />
+          </Box>
+        </GridItem>
+        <GridItem h='100%'>
+          <Text w='100%'>{content}</Text>
+        </GridItem>
+      </Grid> */}
     </GridItem>
   );
 }
