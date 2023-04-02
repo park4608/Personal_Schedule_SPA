@@ -24,14 +24,15 @@ function ScheduleBoard() {
 
   return (
     <>
-      <Box maxW='1450px' bg='white' borderRadius='lg' boxShadow='rgba(149, 157, 165, 0.2) 0px 4px 12px' overflow='hidden' position='relative'>
+      <Box maxW='2000px' bg='white' borderRadius='lg' boxShadow='rgba(149, 157, 165, 0.2) 0px 4px 12px' overflow='hidden' position='relative'>
         <B.DateHeader>
           <Flex alignItems='center' justifyContent='center'>
             <DayJS format='YYYY MMM DD'>{date}</DayJS>
             <Clock />
           </Flex>
         </B.DateHeader>
-        <Box w='full' overflowX='auto' h='200px'>
+
+        <C.ScrollDiv height={'200px'}>
           <Flex px='6' alignItems='center' justifyContent='space-between' w='3070px'>
             {TIME_ONE.map((time, i) => (
               <span key={i}>{time}</span>
@@ -44,8 +45,14 @@ function ScheduleBoard() {
               ))}
             </Grid>
           </Box>
-        </Box>
-        <Box position='absolute' top='180px' left='1270px'>
+        </C.ScrollDiv>
+        {/* <Button
+          onClick={() => {
+            console.log(boardData);
+          }}>
+          test
+        </Button> */}
+        <Box position='absolute' top='182px' right='40px'>
           <AddSchedule />
         </Box>
       </Box>

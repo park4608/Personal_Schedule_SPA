@@ -136,3 +136,34 @@ export const BgStyledDiv = styled.div<{ bgColor: string | null }>`
   background-color: ${(props) => props.bgColor || '#fff'};
   transition: background-color 0.5s ease;
 `;
+
+export const ScrollDiv = styled.div<{ height: string | number }>`
+  width: 100%;
+  height: ${(props) => props.height};
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    height: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+  }
+`;
+
+type CHILD_TYPE = {
+  children: React.ReactNode;
+};
+
+export const WidgetFrame = ({ children }: CHILD_TYPE) => {
+  return (
+    <Box display='flex' alignItems='center' justifyContent='center' w='450px' h='390px' p={4} bg='#fff' borderRadius='lg' boxShadow='rgba(149, 157, 165, 0.2) 0px 4px 12px' _hover={{ boxShadow: 'rgba(0, 0, 0, 0.15) 0px 1px 3px' }}>
+      {children}
+    </Box>
+  );
+};
