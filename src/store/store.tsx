@@ -48,13 +48,15 @@ export const useCellStore = create<CellState>((set) => ({
     });
   },
   updateData: (newData: BoardData) => {
-    let tmp = [];
     set((state) => ({
-      boardData: (tmp = [...state.boardData, newData].sort((a, b) => {
+      boardData: [...state.boardData, newData].sort((a, b) => {
         if (a.startTime < b.startTime) return -1;
         else return 1;
-      })),
+      }),
     }));
+  },
+  ModifyData: (modified: BoardData) => {
+    set((state) => ({}));
   },
   deleteData: (targetData: TimeData) =>
     set((state) => ({
