@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCellStore } from '../../../../store/store';
 import DayJS from 'react-dayjs';
 import day from 'dayjs';
@@ -11,10 +11,13 @@ import { AddIcon, EditIcon } from '@chakra-ui/icons';
 import Clock from '../../../../components/clock/Clock';
 import BoardCell from './BoardCell';
 import AddSchedule from './AddSchedule';
+import ClockHands from './ClockHands';
 
 const TIME_ONE = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'];
 
 function ScheduleBoard() {
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+
   const date = day().format();
   const { boardData, fetchData } = useCellStore();
 
@@ -33,25 +36,24 @@ function ScheduleBoard() {
         </B.DateHeader>
 
         <C.ScrollDiv height={'200px'}>
-          <Flex px='6' alignItems='center' justifyContent='space-between' w='3070px'>
+          <Flex px='6' alignItems='center' justifyContent='space-between' w='3077px'>
             {TIME_ONE.map((time, i) => (
               <span key={i}>{time}</span>
             ))}
           </Flex>
           <Box bg='gray.100' mx='10' h='4em' borderRadius='lg' w='3000px'>
-            <Grid templateColumns='repeat(30, 1fr)' gap={0} h='100%'>
-              {boardData.map((data, i) => (
-                <BoardCell startTime={data.startTime} endTime={data.endTime} content={data.content} bgColor={data.bgColor} key={i} />
-              ))}
-            </Grid>
+            <Box position='relative' w='100%'>
+              <Box position='absolute'>
+                <Grid templateColumns='repeat(30, 1fr)' gap={0} h='100%'>
+                  {boardData.map((data, i) => (
+                    <BoardCell startTime={data.startTime} endTime={data.endTime} content={data.content} bgColor={data.bgColor} key={i} />
+                  ))}
+                </Grid>
+                <ClockHands distance={'3200px'} />
+              </Box>
+            </Box>
           </Box>
         </C.ScrollDiv>
-        {/* <Button
-          onClick={() => {
-            console.log(boardData);
-          }}>
-          test
-        </Button> */}
         <Box position='absolute' top='182px' right='40px'>
           <AddSchedule />
         </Box>
